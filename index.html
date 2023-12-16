@@ -1,1 +1,39 @@
-Hello Folks
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+</head>
+<body>
+    <h1>Click the button to download a CSV file</h1>
+    <button id="downloadButton">Download CSV</button>
+
+    <script>
+        // JavaScript code to trigger the CSV download
+        document.getElementById("downloadButton").addEventListener("click", function() {
+            // Create a CSV content
+            var csvContent = "Name,Email\nJohn Doe,johndoe@example.com\nJane Smith,janesmith@example.com";
+
+            // Create a Blob containing the CSV data
+            var blob = new Blob([csvContent], { type: 'text/csv' });
+
+            // Create a temporary URL for the Blob
+            var url = window.URL.createObjectURL(blob);
+
+            // Create a download link and trigger the click event
+            var a = document.createElement("a");
+            a.style.display = "none";
+            a.href = url;
+            a.download = "sample.csv";
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up the URL and remove the link
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+</html>
+
